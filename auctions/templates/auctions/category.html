@@ -1,0 +1,15 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h2>Categories</h2>
+<form action="{% url 'category' %}" method="post">
+    {% csrf_token %}
+    <select class="form-select" aria-label="Default select example" name="category">
+        <option selected disabled >Categories</option>
+        {% for category in categories %}
+        <option>{{category.category}}</option>
+        {% endfor %}
+    </select>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

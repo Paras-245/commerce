@@ -1,0 +1,67 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h2>Create Listing</h2>
+<form action="{% url 'createListing' %}" method="post">
+    {% csrf_token %}
+<!-- 
+    <div style="display: flex; padding: 5px;">
+        <h3>Title : </h3>
+        <input type="text" name="title" placeholder="Title">
+    </div>
+
+    <div style="display: flex; padding: 5px;">
+        <h3>Description : </h3>
+        <textarea name="description" id="description" cols="100" rows="5" placeholder="Description"></textarea>
+    </div>
+
+    <div style="display: flex; padding: 5px;">
+        <h3>Starting Bid :</h3>
+        <input type="number" name="startingBid" id="bid">
+    </div>
+    <hr>
+    <h2>Optional Data : </h2>
+    <div style="display: flex; padding: 5px;">
+        <h3>Image Url :</h3>
+        <input type="url" name="image">
+    </div>
+    <div style="display: flex; padding: 5px;">
+        <h3>Category :</h3>
+        <input type="text" name="category">
+    </div>
+    <div style="display: flex; padding: 5px;">
+        <input type="hidden" name="listedByUser" value="{{user.username}}">
+        <input type="submit" value="Create">
+    </div> -->
+
+
+
+    <div class="mb-3">
+        <label for="title" class="form-label">Title :</label>
+        <input type="text" class="form-control" id="title" placeholder="Title" name="title">
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Description :</label>
+        <textarea class="form-control" id="description" cols="100" rows="5" placeholder="Description" name="description"></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="startingBid" class="form-label">Starting Bid :</label>
+        <input type="number" class="form-control" id="startingBid" placeholder="Starting Bid" name="startingBid">
+    </div>
+    
+    <hr>
+    <h2>Optional Data : </h2>
+    <div class="mb-3">
+        <label for="image" class="form-label">Image :</label>
+        <input type="url" class="form-control" id="image" placeholder="Image" name="image">
+    </div>
+
+    <div class="mb-3">
+        <label for="category" class="form-label">Category :</label>
+        <input type="text" class="form-control" id="category" placeholder="Category" name="category">
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+{% endblock %}

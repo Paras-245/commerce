@@ -1,0 +1,34 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h2>Active Listings</h2>
+<div class="card-group m-3">
+    {% for listing in activeListings %}
+    <a href="{% url 'listingPage' listingId=listing.id %}" style="text-decoration: none;">
+        <div class="row">
+            <div class="col-sm-6 mb-3 m-3 mb-sm-0">
+                <div class="card" style="width: 18rem;">
+                    {% if listing.image %}
+                    <img src="{{listing.image}}" class="card-img-top" alt="{{listing.title}}" height="286" width="286">
+                    {% else %}
+                    <img src="https://agentsboost.com/wp-content/uploads/realtor-win-house-listing.jpg"
+                        class="card-img-top" alt="{{listing.title}}" height="286" width="286">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{listing.title}}</h5>
+                        <h6 class="card-tite">Current Price : {{listing.startingBid}} </h6>
+                        <p class="card-text">Created: {{listing.date}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+    {% empty %}
+    <div class="card">
+        <div class="card-body">
+            Sorry No Listings Right now..
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+{% if user.username == winner %}
+<div class="alert alert-success" role="alert">
+    Congrats you have won the bid
+</div>
+{% endif %}
+
+<h1>Listing: {{listing.title}} </h1>
+{% if user.is_authenticated and isActive == True %}
+<div class="m-3">
+    {% if inWatchlist %}
+    <a class="btn btn-secondary btn-sm" href="{% url 'watchlistManager' listingId=listing.id %}">Watchlisted</a>
+    {% else %}
+    <a class="btn btn-primary btn-sm" href="{% url 'watchlistManager' listingId=listing.id %}">Watchlist</a>
+    {% endif %}
+</div>
+<div class="m-3">
+    {% if user.username == listedByUser %}
+    <a class="btn btn-primary btn-sm" href="{% url 'closeListing' listingId=listing.id %}">Close The Listing</a>
+    {% endif %}
+</div>
+{% endif %}
+
+<img src="{{listing.image}}" class="rounded float-start img-thumbnail m-3" height="350" width="350">
+<h3>Description:</h3>
+<p> {{listing.description}}</p>
+<h1>${{listing.startingBid}}.00</h1>
+<p>{{bidsMade}} bid(s) so far. Your bid is the current bid</p>
+
+{% if user.is_authenticated and isActive == True %}
+<form action="{% url 'bidding' listingId=listing.id %}" method="post">
+    {% csrf_token %}
+    <div class="mb-2">
+        <input type="number" class="form-control" name="bidMade" placeholder="Bid">
+    </div>
+    <button type="submit" class="btn btn-primary">Place Bid</button>
+</form>
+{% endif %}
+
+<h2>Details:</h2>
+<ul>
+    <li>Listed By: {{listing.listedByUser}}</li>
+    <li>Category:
+        {% if listing.category %}
+        {{listing.category}}
+        {% else %}
+        No Category Listed
+        {% endif %}
+    </li>
+</ul>
+{% if user.is_authenticated and isActive == True %}
+<form action="{% url 'comment' listingId=listing.id %}" method="post">
+    {% csrf_token %}
+    <div class="form-floating m-2">
+        <textarea class="form-control" placeholder="Leave a comment here" name="comment"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Post Comment</button>
+</form>
+{% endif %}
+
+<h2>Comments</h2>
+<div class="alert alert-secondary " role="alert">
+    <ol>
+        {% for comment in comments %}
+        <li>{{comment.comment}}</li>
+        {% empty %}
+    </ol>
+</div>
+No comments posted yet..
+{% endfor %}
+{% endblock %}
